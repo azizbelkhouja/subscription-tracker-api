@@ -19,3 +19,4 @@ subscriptionRouter.get('/:id/cancel', (req, res) => {res.send(`CANCEL subscripti
 subscriptionRouter.get('/upcoming-renewals', (req, res) => {res.send(`GET Upcoming subscription`)});
 
 
+export default subscriptionRouter;

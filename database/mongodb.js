@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import {DB_URI, node_env} from '../config/env.js';
+import {DB_URI, NODE_ENV} from '../config/env.js';
 
 if(!DB_URI) {
   throw new Error('DB_URI not defined')
@@ -16,3 +16,5 @@ const connectToDatabase = async () => {
     console.error(`Error connecting to MongoDB database: ${error.message}`);
   }
 }
+
+export default connectToDatabase;

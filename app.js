@@ -1,5 +1,6 @@
 import express from 'express'
 import { PORT } from './config/env.js';
+import connectToDatabase from './database/mongodb.js';
 
 import userRouter from './routes/user.routes.js';
 import authRouter from './routes/auth.routes.js';
@@ -8,6 +9,8 @@ import errorMiddleware from './middlewares/error.middleware.js';
 import cookieParser from 'cookie-parser';
 
 const app = express();
+
+connectToDatabase();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
