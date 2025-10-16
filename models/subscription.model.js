@@ -60,7 +60,28 @@ const subscriptionSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export const Subscription = mongoose.model("Subscription", subscriptionSchema);
+
+// Auto calculate renewal date based on frequency and start date
+subscriptionSchema.pre('save', function(next) {
+  if(!this.renewalDate) {
+    if(this.frequency === 'monthly') {
+      this.renewalDate = new Date(this.startDate);
+      this.renewalDate.setMonth(this.renewalDate.getMonth() + 1);
+    } else if(this.frequency === 'yearly') {
+      this.renewalDate = new Date(this.startDate);
+      this.renewalDate.setFullYear(this.renewalDate.getFullYear() + 1);
+    }
+  }
+
+  // auto update sttatus based on end date
+  if(this.endDate && this.endDate < new Date()) {
+    this.status = 'canceled';
+  }
+
+  next();
+});
+
+const Subscription = mongoose.model("Subscription", subscriptionSchema);
 
 // For usage in other files to create different subscriptions
 export default Subscription;
