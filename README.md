@@ -5,5 +5,6 @@ httpie
 upstash
 arcjet
 hostinger
+postman
 
 nodemon
